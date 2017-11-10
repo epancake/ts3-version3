@@ -5,52 +5,61 @@ app.use(cors());
 
 var students = [{
   "id": 1,
-  "First Name": "Alice",
-  "Last Name": "Zephyr",
-  "Home Town": "Seattle"
+  "FirstName": "Alice",
+  "LastName": "Zephyr",
+  "HomeTown": "Seattle"
 },
 {
   "id": 2,
-  "First Name": "Bob",
-  "Last Name": "Yellow",
-  "Home Town": "Vancouver"
+  "FirstName": "Bob",
+  "LastName": "Yellow",
+  "HomeTown": "Vancouver"
 },
 {
   "id": 3,
-  "First Name": "Claire",
-  "Last Name": "Xylitol",
-  "Home Town": "Toledo"
+  "FirstName": "Claire",
+  "LastName": "Xylitol",
+  "HomeTown": "Toledo"
 },
 {
   "id": 4,
-  "First Name": "Daniel",
-  "Last Name": "Winston",
-  "Home Town": "Akron"
+  "FirstName": "Daniel",
+  "LastName": "Winston",
+  "HomeTown": "Akron"
 },
 {
   "id": 5,
-  "First Name": "Edina",
-  "Last Name": "Veritas",
-  "Home Town": "Wichita"
+  "FirstName": "Edina",
+  "LastName": "Veritas",
+  "HomeTown": "Wichita"
 },
 ];
 
+function findById(data, id){
+    for (let i = 0; i < data.length; i++){
+        if (data[i].id == id){
+            return data[i];
+        }
+    }
+    return null;
+}
+
 app.get("/", function (request, response) {
-  response.json(students);
+  response.json({data: students});
 }
 )
 
 app.get("/:id", function (request, response) {
   var record = findById(students, request.params.id)
   if (!record){
-    response.status = 404;
+    response.status(404);
     response.json({
       error: {
         message: "No record found!"
       }
     });
   }
-  response.json({students: record});
+  response.json({data: record});
 }
 )
 
